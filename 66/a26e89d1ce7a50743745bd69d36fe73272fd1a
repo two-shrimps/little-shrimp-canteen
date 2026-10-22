@@ -1,0 +1,19 @@
+docs/implementation-practice.md
+  s_70a2bd3a47e163::t_f82776dac86a2c 1-748
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.51-trip",
+  "base_commit_sha": "66a26e89d1ce7a50743745bd69d36fe73272fd1a",
+  "prompts": {},
+  "sessions": {
+    "s_70a2bd3a47e163": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1599d-8974-7793-a8b4-62fd717ad919",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "SuperKatrina123 <yingyuyan@zju.edu.cn>"
+    }
+  }
+}
