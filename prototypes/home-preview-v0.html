@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>小虾食堂 · 餐桌首页预览</title>
+  <style>
+    :root {
+      --paper: #fff8ee;
+      --surface: #fffcf7;
+      --cocoa: #44372f;
+      --muted: #74645a;
+      --line: #ded3c8;
+      --tomato: #e77c64;
+      --tomato-deep: #8d4436;
+      --sage: #8eaa82;
+      --yolk: #f4c95d;
+      --sky: #afcbd8;
+      --shadow: 0 18px 48px rgba(91, 68, 53, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--cocoa);
+      background:
+        radial-gradient(circle at 14% 14%, rgba(244, 201, 93, .18), transparent 26%),
+        radial-gradient(circle at 88% 84%, rgba(142, 170, 130, .17), transparent 24%),
+        #eee5dc;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 54px 24px;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: 390px 270px;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .phone {
+      width: 390px;
+      height: 844px;
+      overflow: hidden;
+      position: relative;
+      border: 8px solid #2f2925;
+      border-radius: 48px;
+      background: var(--paper);
+      box-shadow: 0 40px 80px rgba(68, 55, 47, .23);
+    }
+
+    .screen {
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 54px 20px 102px;
+    }
+
+    .status {
+      position: absolute;
+      top: 18px; left: 24px; right: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .status-icons { display: flex; align-items: center; gap: 7px; }
+    .signal { width: 14px; height: 10px; border-bottom: 2px solid var(--cocoa); border-left: 2px solid var(--cocoa); transform: skew(-14deg); }
+    .wifi { width: 13px; height: 10px; border-top: 2px solid var(--cocoa); border-radius: 50%; }
+    .battery { width: 19px; height: 9px; border: 1.8px solid var(--cocoa); border-radius: 3px; position: relative; }
+    .battery::after { content: ""; position: absolute; inset: 2px; background: var(--cocoa); border-radius: 1px; }
+
+    .topline { display: flex; justify-content: space-between; align-items: flex-start; }
+    .eyebrow { margin: 0 0 5px; color: var(--muted); font-size: 13px; font-weight: 600; }
+    h1 { margin: 0; max-width: 255px; font-size: 27px; line-height: 1.3; letter-spacing: -.03em; }
+    .avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--yolk);
+      border: 1px solid rgba(68, 55, 47, .12);
+      font-family: ui-rounded, "PingFang SC", sans-serif;
+      font-weight: 800;
+      color: var(--tomato-deep);
+    }
+
+    .date-tabs { display: flex; gap: 8px; margin: 22px 0 16px; }
+    .date-tab {
+      padding: 9px 13px; border-radius: 999px;
+      color: var(--muted); background: rgba(255,255,255,.54);
+      border: 1px solid rgba(68,55,47,.08);
+      font-size: 13px; font-weight: 650;
+      font-family: inherit; cursor: pointer;
+    }
+    .date-tab.active { color: var(--surface); background: var(--tomato-deep); border-color: var(--tomato-deep); }
+
+    .menu-card {
+      background: var(--surface);
+      border: 1px solid rgba(68,55,47,.10);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .photo {
+      height: 230px;
+      position: relative;
+      background:
+        linear-gradient(180deg, transparent 48%, rgba(45,31,23,.68)),
+        url("../assets/food-table.jpg") center/cover;
+    }
+
+    .photo::before {
+      content: "今晚 · 2 人";
+      position: absolute; left: 16px; top: 16px;
+      padding: 8px 11px; border-radius: 999px;
+      background: rgba(255,252,247,.9);
+      backdrop-filter: blur(8px);
+      color: var(--cocoa);
+      font-size: 12px; font-weight: 750;
+    }
+
+    .photo-copy { position: absolute; left: 18px; right: 18px; bottom: 16px; color: white; }
+    .photo-copy strong { display: block; font-size: 22px; letter-spacing: -.02em; margin-bottom: 4px; }
+    .photo-copy span { font-size: 13px; opacity: .88; }
+
+    .menu-body { padding: 16px 18px 18px; }
+    .dish-row { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+    .dish-list { display: flex; gap: 7px; flex-wrap: wrap; }
+    .dish { padding: 7px 10px; border-radius: 999px; background: #f7eee3; font-size: 12px; font-weight: 650; }
+    .edit-btn { border: 0; background: transparent; color: var(--tomato-deep); font-weight: 750; font-size: 13px; white-space: nowrap; }
+
+    .ai-card {
+      margin-top: 14px;
+      display: grid; grid-template-columns: 46px 1fr auto; gap: 12px; align-items: center;
+      padding: 14px; border-radius: 20px;
+      background: #eef4e9;
+      border: 1px solid rgba(83,111,74,.12);
+    }
+    .ai-mark {
+      width: 46px; height: 46px; border-radius: 15px;
+      position: relative; background: var(--sage);
+    }
+    .ai-mark::before, .ai-mark::after { content: ""; position: absolute; background: #fffaf2; }
+    .ai-mark::before { width: 20px; height: 13px; border-radius: 4px 4px 10px 10px; left: 13px; top: 19px; }
+    .ai-mark::after { width: 4px; height: 10px; border-radius: 999px; left: 21px; top: 8px; transform: rotate(-20deg); }
+    .ai-copy strong { display: block; font-size: 15px; margin-bottom: 3px; }
+    .ai-copy span { color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .arrow { font-size: 21px; color: var(--tomato-deep); }
+
+    .section-head { margin: 22px 1px 12px; display: flex; justify-content: space-between; align-items: center; }
+    .section-head h2 { margin: 0; font-size: 18px; }
+    .section-head span { color: var(--muted); font-size: 12px; }
+
+    .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .quick {
+      min-height: 90px; padding: 14px; border-radius: 19px;
+      border: 1px solid rgba(68,55,47,.09);
+      background: var(--surface);
+    }
+    .quick:first-child { background: #f9e5df; }
+    .quick:last-child { background: #e9f1f4; }
+    .quick-label { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+    .quick strong { display: block; font-size: 16px; margin-bottom: 4px; }
+    .quick small { color: var(--muted); font-size: 11px; }
+
+    nav {
+      position: absolute; left: 13px; right: 13px; bottom: 12px; height: 76px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-radius: 24px; background: rgba(255,252,247,.96);
+      border: 1px solid rgba(68,55,47,.11);
+      box-shadow: 0 8px 28px rgba(91,68,53,.13);
+      backdrop-filter: blur(18px);
+    }
+    .nav-item { display: grid; place-content: center; gap: 5px; color: #9b8d84; font-size: 11px; text-align: center; }
+    .nav-icon { width: 21px; height: 21px; margin: auto; position: relative; }
+    .nav-icon::before { content: ""; position: absolute; inset: 2px; border: 1.8px solid currentColor; border-radius: 6px; }
+    .nav-item.active { color: var(--tomato-deep); font-weight: 750; }
+    .nav-item.active .nav-icon { background: #f6dfd9; border-radius: 8px; }
+
+    .calendar-overlay {
+      position: absolute; inset: 0; z-index: 30;
+      display: flex; align-items: flex-end;
+      background: rgba(68,55,47,.28);
+      opacity: 0; pointer-events: none;
+      transition: opacity 200ms ease;
+    }
+    .calendar-overlay.open { opacity: 1; pointer-events: auto; }
+    .calendar-sheet {
+      width: 100%; padding: 10px 20px 22px;
+      border-radius: 28px 28px 0 0;
+      background: var(--surface);
+      box-shadow: 0 -18px 45px rgba(68,55,47,.18);
+      transform: translateY(20px);
+      transition: transform 240ms cubic-bezier(.22,1,.36,1);
+    }
+    .calendar-overlay.open .calendar-sheet { transform: translateY(0); }
+    .sheet-handle { width: 36px; height: 4px; margin: 0 auto 15px; border-radius: 99px; background: var(--cocoa-200); }
+    .calendar-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+    .calendar-title small { display: block; margin-bottom: 3px; color: var(--muted); font-size: 11px; }
+    .calendar-title strong { font-size: 19px; }
+    .calendar-controls { display: flex; gap: 7px; }
+    .calendar-controls button, .calendar-close {
+      width: 38px; height: 38px; display: grid; place-items: center;
+      border: 1px solid rgba(68,55,47,.12); border-radius: 12px;
+      background: var(--paper); color: var(--cocoa); font-size: 19px; cursor: pointer;
+    }
+    .weekdays, .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; }
+    .weekdays { margin-bottom: 5px; color: var(--muted); font-size: 10px; font-weight: 700; }
+    .weekdays span { padding: 5px 0; }
+    .calendar-day {
+      position: relative; height: 42px; display: grid; place-items: center;
+      border: 0; border-radius: 13px; background: transparent;
+      color: var(--cocoa); font-size: 12px; cursor: pointer;
+    }
+    .calendar-day.muted { color: #b9aca3; }
+    .calendar-day.has-meal::after {
+      content: ""; position: absolute; bottom: 5px; width: 4px; height: 4px;
+      border-radius: 50%; background: var(--tomato);
+    }
+    .calendar-day.today { box-shadow: inset 0 0 0 1px var(--tomato); color: var(--tomato-deep); font-weight: 800; }
+    .calendar-day.selected { color: var(--surface); background: var(--tomato-deep); font-weight: 800; }
+    .calendar-day.selected::after { background: var(--surface); }
+    .selected-meal {
+      margin-top: 13px; padding: 13px 14px; display: grid; grid-template-columns: 42px 1fr auto;
+      gap: 11px; align-items: center; border-radius: 17px; background: #f6eee5;
+    }
+    .selected-date {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border-radius: 13px; color: var(--surface); background: var(--sage);
+      font-size: 15px; font-weight: 800;
+    }
+    .selected-copy strong { display: block; margin-bottom: 3px; font-size: 13px; }
+    .selected-copy span { color: var(--muted); font-size: 10px; }
+    .selected-action { border: 0; background: transparent; color: var(--tomato-deep); font-size: 12px; font-weight: 750; }
+
+    .notes { align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+    .brand-kicker { color: var(--tomato-deep); font-size: 12px; font-weight: 800; letter-spacing: .14em; }
+    .notes h2 { margin: 12px 0 14px; font-size: 36px; line-height: 1.14; letter-spacing: -.04em; }
+    .notes p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.8; }
+    .palette { display: flex; gap: 9px; margin: 26px 0; }
+    .swatch { width: 36px; height: 36px; border-radius: 50%; border: 4px solid rgba(255,255,255,.76); box-shadow: 0 4px 12px rgba(68,55,47,.12); }
+    .meta { padding-top: 18px; border-top: 1px solid rgba(68,55,47,.14); color: var(--muted); font-size: 12px; line-height: 1.7; }
+
+    @media (max-width: 760px) {
+      body { padding: 20px; display: block; }
+      .board { grid-template-columns: 1fr; justify-items: center; }
+      .notes { width: min(390px, 100%); order: -1; }
+      .notes h2 { font-size: 30px; }
+      .phone { transform-origin: top center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <section class="phone" aria-label="小虾食堂餐桌首页预览">
+      <div class="screen">
+        <div class="status"><span>20:41</span><div class="status-icons"><i class="signal"></i><i class="wifi"></i><i class="battery"></i></div></div>
+
+        <header class="topline">
+          <div>
+            <p class="eyebrow">10 月 21 日 · 星期三</p>
+            <h1>晚上好，今晚也要好好吃饭。</h1>
+          </div>
+          <div class="avatar" aria-label="餐桌空间头像">虾</div>
+        </header>
+
+        <div class="date-tabs">
+          <div class="date-tab active">今晚</div>
+          <div class="date-tab">明天</div>
+          <button class="date-tab" id="open-calendar" type="button">更多日期</button>
+        </div>
+
+        <article class="menu-card">
+          <div class="photo" role="img" aria-label="自然光下的家常餐桌照片">
+            <div class="photo-copy"><strong>番茄牛腩小餐桌</strong><span>预计 45 分钟 · 约 680 kcal / 人</span></div>
+          </div>
+          <div class="menu-body">
+            <div class="dish-row">
+              <div class="dish-list"><span class="dish">番茄牛腩</span><span class="dish">白灼菜心</span><span class="dish">米饭</span></div>
+              <button class="edit-btn">调整菜单</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="ai-card">
+          <div class="ai-mark" aria-hidden="true"></div>
+          <div class="ai-copy"><strong>这顿搭配刚刚好</strong><span>蔬菜和蛋白质都照顾到了，可以准备采购啦。</span></div>
+          <span class="arrow">›</span>
+        </article>
+
+        <div class="section-head"><h2>接下来</h2><span>两个人一起完成</span></div>
+        <div class="quick-grid">
+          <article class="quick"><div class="quick-label">采购清单</div><strong>还有 6 样待买</strong><small>预计约 ¥86</small></article>
+          <article class="quick"><div class="quick-label">菜谱仓库</div><strong>找一道新菜</strong><small>本周收藏了 3 道</small></article>
+        </div>
+
+        <nav aria-label="底部导航">
+          <div class="nav-item active"><i class="nav-icon"></i><span>餐桌</span></div>
+          <div class="nav-item"><i class="nav-icon"></i><span>菜谱</span></div>
+          <div class="nav-item"><i class="nav-icon"></i><span>采购</span></div>
+          <div class="nav-item"><i class="nav-icon"></i><span>我们的</span></div>
+        </nav>
+
+        <div class="calendar-overlay" id="calendar-overlay" aria-hidden="true">
+          <section class="calendar-sheet" role="dialog" aria-modal="true" aria-label="选择菜单日期">
+            <div class="sheet-handle"></div>
+            <header class="calendar-head">
+              <div class="calendar-title"><small>看看哪天已经有安排</small><strong>2026 年 10 月</strong></div>
+              <div class="calendar-controls"><button type="button" aria-label="上个月">‹</button><button type="button" aria-label="下个月">›</button><button class="calendar-close" id="close-calendar" type="button" aria-label="关闭">×</button></div>
+            </header>
+            <div class="weekdays"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+            <div class="calendar-grid">
+              <button class="calendar-day muted">28</button><button class="calendar-day muted">29</button><button class="calendar-day muted">30</button>
+              <button class="calendar-day">1</button><button class="calendar-day has-meal">2</button><button class="calendar-day">3</button><button class="calendar-day">4</button>
+              <button class="calendar-day">5</button><button class="calendar-day has-meal">6</button><button class="calendar-day">7</button><button class="calendar-day">8</button><button class="calendar-day has-meal">9</button><button class="calendar-day">10</button><button class="calendar-day">11</button>
+              <button class="calendar-day">12</button><button class="calendar-day">13</button><button class="calendar-day has-meal">14</button><button class="calendar-day">15</button><button class="calendar-day">16</button><button class="calendar-day has-meal">17</button><button class="calendar-day">18</button>
+              <button class="calendar-day">19</button><button class="calendar-day">20</button><button class="calendar-day today selected has-meal" data-day="21">21</button><button class="calendar-day">22</button><button class="calendar-day has-meal" data-day="23">23</button><button class="calendar-day">24</button><button class="calendar-day has-meal" data-day="25">25</button>
+              <button class="calendar-day">26</button><button class="calendar-day">27</button><button class="calendar-day">28</button><button class="calendar-day">29</button><button class="calendar-day has-meal">30</button><button class="calendar-day">31</button><button class="calendar-day muted">1</button>
+            </div>
+            <article class="selected-meal"><div class="selected-date" id="selected-date">21</div><div class="selected-copy"><strong id="selected-title">今晚 · 番茄牛腩小餐桌</strong><span id="selected-subtitle">3 道菜 · 两个人</span></div><button class="selected-action" type="button">查看</button></article>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <aside class="notes">
+      <div class="brand-kicker">LITTLE SHRIMP CANTEEN</div>
+      <h2>小虾食堂<br />餐桌首页 v0</h2>
+      <p>Headspace 式温暖亲和<br />× 私人餐桌手账</p>
+      <div class="palette" aria-label="基础色板">
+        <i class="swatch" style="background:#fff8ee"></i>
+        <i class="swatch" style="background:#44372f"></i>
+        <i class="swatch" style="background:#e77c64"></i>
+        <i class="swatch" style="background:#8eaa82"></i>
+        <i class="swatch" style="background:#f4c95d"></i>
+      </div>
+      <div class="meta">低精度视觉预览 · 重点确认色彩、气质、信息层级与插画浓度。<br />真实产品图标、品牌角色和细节交互暂未展开。</div>
+    </aside>
+  </main>
+  <script>
+    const overlay = document.getElementById('calendar-overlay');
+    const openCalendar = document.getElementById('open-calendar');
+    const closeCalendar = document.getElementById('close-calendar');
+    const mealByDay = {
+      21: ['今晚 · 番茄牛腩小餐桌', '3 道菜 · 两个人'],
+      23: ['周五 · 家常豆腐小餐桌', '2 道菜 · 两个人'],
+      25: ['周日 · 清蒸鲈鱼小餐桌', '3 道菜 · 两个人']
+    };
+    const showCalendar = () => { overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false'); };
+    const hideCalendar = () => { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); };
+    openCalendar.addEventListener('click', showCalendar);
+    closeCalendar.addEventListener('click', hideCalendar);
+    overlay.addEventListener('click', event => { if (event.target === overlay) hideCalendar(); });
+    document.querySelectorAll('.calendar-day:not(.muted)').forEach(day => day.addEventListener('click', () => {
+      document.querySelectorAll('.calendar-day').forEach(item => item.classList.remove('selected'));
+      day.classList.add('selected');
+      const number = Number(day.textContent);
+      document.getElementById('selected-date').textContent = number;
+      const meal = mealByDay[number];
+      document.getElementById('selected-title').textContent = meal ? meal[0] : `10 月 ${number} 日 · 还没有安排`;
+      document.getElementById('selected-subtitle').textContent = meal ? meal[1] : '可以从菜谱仓库挑一道想吃的';
+      document.querySelector('.selected-action').textContent = meal ? '查看' : '安排';
+    }));
+    if (new URLSearchParams(location.search).get('calendar') === 'open') showCalendar();
+  </script>
+</body>
+</html>

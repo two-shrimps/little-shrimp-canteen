@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>小虾食堂 · 温馨版餐桌首页</title>
+  <style>
+    :root {
+      --paper-50: #fff8ee;
+      --paper-0: #fffcf7;
+      --cocoa-900: #44372f;
+      --cocoa-600: #74645a;
+      --cocoa-200: #ded3c8;
+      --tomato-500: #e77c64;
+      --tomato-800: #8d4436;
+      --sage-500: #8eaa82;
+      --yolk-400: #f4c95d;
+      --sky-300: #afcbd8;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      display: grid;
+      place-items: center;
+      padding: 50px 24px;
+      color: var(--cocoa-900);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(244,201,93,.22), transparent 22%),
+        radial-gradient(circle at 86% 78%, rgba(142,170,130,.18), transparent 26%),
+        #e9dfd4;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .board {
+      width: min(790px, 100%);
+      display: grid;
+      grid-template-columns: 410px 1fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .phone {
+      width: 410px;
+      height: 860px;
+      overflow: hidden;
+      position: relative;
+      border: 8px solid #332c28;
+      border-radius: 48px;
+      background: var(--paper-50);
+      box-shadow: 0 42px 84px rgba(68,55,47,.24);
+    }
+
+    .screen {
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 52px 20px 102px;
+      background:
+        radial-gradient(circle at 18px 18px, rgba(68,55,47,.024) 1.2px, transparent 1.4px) 0 0 / 22px 22px,
+        var(--paper-50);
+    }
+
+    .screen::before {
+      content: "";
+      position: absolute;
+      width: 210px; height: 210px;
+      right: -94px; top: 58px;
+      border-radius: 50%;
+      background: rgba(244,201,93,.18);
+      pointer-events: none;
+    }
+
+    .status {
+      position: absolute;
+      top: 18px; left: 24px; right: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; font-weight: 750;
+    }
+    .status-icons { display: flex; align-items: center; gap: 7px; }
+    .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--cocoa-900); box-shadow: 6px 0 var(--cocoa-900), 12px 0 var(--cocoa-900); }
+    .battery { width: 20px; height: 10px; border: 1.6px solid var(--cocoa-900); border-radius: 3px; margin-left: 13px; padding: 2px; }
+    .battery::after { content: ""; display: block; width: 11px; height: 100%; border-radius: 1px; background: var(--cocoa-900); }
+
+    .greeting { position: relative; min-height: 104px; }
+    .date {
+      display: inline-flex; align-items: center; gap: 7px;
+      margin: 0 0 8px; color: var(--tomato-800);
+      font-size: 12px; font-weight: 780; letter-spacing: .02em;
+    }
+    .date::before { content: ""; width: 20px; height: 2px; background: var(--tomato-500); border-radius: 99px; transform: rotate(-4deg); }
+    h1 {
+      width: 285px; margin: 0;
+      font-family: "Kaiti SC", "STKaiti", "PingFang SC", sans-serif;
+      font-size: 29px; line-height: 1.28; font-weight: 700;
+      letter-spacing: -.02em; text-wrap: pretty;
+    }
+    .under-stroke { position: relative; z-index: 0; white-space: nowrap; }
+    .under-stroke::after {
+      content: ""; position: absolute; z-index: -1;
+      left: -2px; right: -2px; bottom: 1px; height: 8px;
+      border-radius: 50%; background: rgba(244,201,93,.46); transform: rotate(-1deg);
+    }
+
+    .bowls { position: absolute; right: 2px; top: 8px; width: 78px; height: 76px; }
+    .bowl { position: absolute; width: 44px; height: 32px; }
+    .bowl.one { left: 1px; bottom: 4px; transform: rotate(-7deg); }
+    .bowl.two { right: 0; top: 3px; transform: rotate(8deg) scale(.88); }
+    .bowl::before {
+      content: ""; position: absolute; left: 2px; top: 7px; width: 40px; height: 22px;
+      border: 2px solid var(--cocoa-900); border-top: 0; border-radius: 4px 4px 18px 18px;
+      background: var(--tomato-500);
+    }
+    .bowl.two::before { background: var(--sage-500); }
+    .bowl::after {
+      content: "•  •"; position: absolute; left: 12px; top: 8px;
+      font-size: 11px; letter-spacing: 6px; color: var(--cocoa-900); white-space: nowrap;
+    }
+    .smile {
+      position: absolute; left: 19px; top: 20px; width: 9px; height: 5px;
+      border-bottom: 1.5px solid var(--cocoa-900); border-radius: 0 0 9px 9px; z-index: 2;
+    }
+    .steam {
+      position: absolute; width: 8px; height: 15px; top: -7px; left: 12px;
+      border-left: 1.6px solid var(--cocoa-600); border-radius: 50%; transform: rotate(10deg);
+    }
+    .steam::after { content: ""; position: absolute; width: 7px; height: 13px; left: 12px; top: 2px; border-left: 1.6px solid var(--cocoa-600); border-radius: 50%; transform: rotate(-16deg); }
+
+    .day-switch { display: flex; gap: 9px; margin: 16px 0 14px; align-items: center; }
+    .day-switch span { color: var(--cocoa-600); font-size: 13px; font-weight: 650; padding: 7px 4px; }
+    .day-switch .active {
+      color: var(--tomato-800); padding: 8px 13px; border-radius: 999px;
+      background: #f9e2dc; border: 1px solid rgba(141,68,54,.08);
+    }
+
+    .menu-wrap { position: relative; padding-bottom: 11px; }
+    .tape {
+      position: absolute; z-index: 3; top: -7px; left: 23px; width: 74px; height: 24px;
+      background: rgba(244,201,93,.68); transform: rotate(-3deg);
+      box-shadow: inset 0 0 0 1px rgba(68,55,47,.035);
+    }
+    .menu-card {
+      position: relative; overflow: hidden;
+      border-radius: 7px 24px 20px 22px;
+      background: var(--paper-0);
+      border: 1px solid rgba(68,55,47,.11);
+      box-shadow: 0 12px 30px rgba(91,68,53,.11);
+      transform: rotate(-.35deg);
+    }
+    .photo {
+      height: 226px; position: relative;
+      background:
+        linear-gradient(180deg, rgba(60,36,24,.02) 38%, rgba(49,31,22,.72) 100%),
+        url("../assets/food-table.jpg") center 54% / cover;
+      filter: saturate(.88) sepia(.06);
+    }
+    .photo::after {
+      content: "今晚的小餐桌"; position: absolute; left: 15px; top: 16px;
+      padding: 7px 10px; color: var(--cocoa-900); background: rgba(255,252,247,.91);
+      border-radius: 4px 10px 8px 7px; transform: rotate(-2deg);
+      font-family: "Kaiti SC", "STKaiti", sans-serif; font-size: 13px; font-weight: 700;
+    }
+    .meal-copy { position: absolute; left: 17px; right: 17px; bottom: 16px; color: white; }
+    .meal-copy strong { display: block; font-size: 22px; margin-bottom: 5px; text-shadow: 0 1px 8px rgba(0,0,0,.2); }
+    .meal-copy span { font-size: 12px; opacity: .9; }
+
+    .menu-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 16px 16px; }
+    .dishes { color: var(--cocoa-600); font-size: 12px; line-height: 1.6; }
+    .dishes strong { display: block; color: var(--cocoa-900); font-size: 14px; }
+    .menu-link {
+      flex: 0 0 auto; min-height: 44px; padding: 0 14px; border-radius: 14px;
+      border: 1px solid rgba(141,68,54,.16); color: var(--tomato-800);
+      background: #fff7f2; font-weight: 750;
+    }
+
+    .together-note {
+      position: absolute; right: -2px; bottom: -1px; z-index: 4;
+      width: 190px; padding: 10px 13px; border-radius: 5px 12px 7px 10px;
+      background: #edf3e8; border: 1px solid rgba(68,55,47,.09);
+      box-shadow: 0 8px 18px rgba(68,55,47,.08); transform: rotate(2deg);
+      font-family: "Kaiti SC", "STKaiti", sans-serif;
+      color: #536b4a; font-size: 12px; font-weight: 700;
+    }
+
+    .ai-card {
+      margin-top: 9px; padding: 14px 15px;
+      display: grid; grid-template-columns: 38px 1fr auto; gap: 11px; align-items: center;
+      border-radius: 18px 22px 20px 16px; background: #f6e8df;
+      border: 1px dashed rgba(141,68,54,.25);
+    }
+    .leaf {
+      width: 34px; height: 34px; position: relative;
+      border-radius: 17px 4px 17px 4px; background: var(--sage-500); transform: rotate(-7deg);
+    }
+    .leaf::after { content: ""; position: absolute; width: 23px; height: 1.5px; background: #fff8ee; left: 7px; top: 18px; transform: rotate(-38deg); border-radius: 99px; }
+    .ai-copy strong { display: block; font-size: 14px; margin-bottom: 3px; }
+    .ai-copy span { color: var(--cocoa-600); font-size: 11px; line-height: 1.5; }
+    .chevron { color: var(--tomato-800); font-size: 22px; }
+
+    .section-title { margin: 18px 2px 10px; display: flex; justify-content: space-between; align-items: end; }
+    .section-title h2 { margin: 0; font-size: 18px; }
+    .section-title span { color: var(--cocoa-600); font-size: 11px; }
+    .next-row { display: grid; grid-template-columns: 1.13fr .87fr; gap: 10px; }
+    .next-card {
+      min-height: 82px; padding: 13px 14px; border-radius: 18px;
+      background: var(--paper-0); border: 1px solid rgba(68,55,47,.1);
+    }
+    .next-card:first-child { background: #eef3e9; }
+    .next-card small { display: block; color: var(--cocoa-600); font-size: 11px; margin-bottom: 6px; }
+    .next-card strong { display: block; font-size: 15px; margin-bottom: 3px; }
+    .next-card span { color: var(--tomato-800); font-size: 11px; font-weight: 700; }
+
+    nav {
+      position: absolute; left: 13px; right: 13px; bottom: 12px; height: 75px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-radius: 23px; background: rgba(255,252,247,.96);
+      border: 1px solid rgba(68,55,47,.11); box-shadow: 0 9px 28px rgba(91,68,53,.14);
+      backdrop-filter: blur(18px);
+    }
+    .nav-item { display: grid; place-content: center; gap: 5px; text-align: center; color: #9b8d84; font-size: 10px; }
+    .nav-icon { width: 21px; height: 20px; margin: auto; border: 1.8px solid currentColor; border-radius: 6px 6px 9px 9px; }
+    .nav-item.active { color: var(--tomato-800); font-weight: 750; }
+    .nav-item.active .nav-icon { background: #f6dfd9; }
+
+    .notes { align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+    .kicker { color: var(--tomato-800); font-size: 11px; font-weight: 800; letter-spacing: .16em; }
+    .notes h2 { margin: 12px 0 14px; font-family: "Kaiti SC", "STKaiti", sans-serif; font-size: 39px; line-height: 1.12; letter-spacing: -.03em; }
+    .notes p { margin: 0; color: var(--cocoa-600); font-size: 14px; line-height: 1.8; text-wrap: pretty; }
+    .palette { display: flex; gap: 8px; margin: 25px 0; }
+    .swatch { width: 34px; height: 34px; border-radius: 12px 12px 15px 10px; border: 4px solid rgba(255,255,255,.7); box-shadow: 0 4px 10px rgba(68,55,47,.1); }
+    .changes { padding-top: 17px; border-top: 1px dashed rgba(68,55,47,.22); color: var(--cocoa-600); font-size: 12px; line-height: 1.75; }
+    .changes b { color: var(--cocoa-900); }
+
+    @media (max-width: 780px) {
+      body { display: block; padding: 20px; }
+      .board { grid-template-columns: 1fr; justify-items: center; }
+      .notes { width: min(410px, 100%); order: -1; }
+      .notes h2 { font-size: 31px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <section class="phone" aria-label="小虾食堂温馨版餐桌首页">
+      <div class="screen">
+        <div class="status"><span>20:41</span><div class="status-icons"><i class="dot"></i><i class="battery"></i></div></div>
+
+        <header class="greeting">
+          <p class="date">10 月 21 日 · 星期三</p>
+          <h1>晚上好，今天也<br />一起<span class="under-stroke">好好吃饭</span>。</h1>
+          <div class="bowls" aria-label="两只碰面的小碗插画">
+            <div class="bowl one"><i class="smile"></i><i class="steam"></i></div>
+            <div class="bowl two"><i class="smile"></i><i class="steam"></i></div>
+          </div>
+        </header>
+
+        <div class="day-switch"><span class="active">今晚</span><span>明天</span><span>这一周</span></div>
+
+        <div class="menu-wrap">
+          <i class="tape" aria-hidden="true"></i>
+          <article class="menu-card">
+            <div class="photo" role="img" aria-label="自然光下的家常餐桌照片">
+              <div class="meal-copy"><strong>番茄牛腩小餐桌</strong><span>2 人份 · 慢慢做，约 45 分钟</span></div>
+            </div>
+            <div class="menu-foot">
+              <div class="dishes"><strong>三道菜，刚好装满一张桌</strong>番茄牛腩 · 白灼菜心 · 米饭</div>
+              <button class="menu-link">看看菜单</button>
+            </div>
+          </article>
+          <div class="together-note">一起动手的话，很快就能开饭。</div>
+        </div>
+
+        <article class="ai-card">
+          <div class="leaf" aria-hidden="true"></div>
+          <div class="ai-copy"><strong>菜心已经替这顿饭留好位置了</strong><span>荤素搭配得刚刚好，可以放心开火。</span></div>
+          <span class="chevron">›</span>
+        </article>
+
+        <div class="section-title"><h2>开饭前的小事</h2><span>两个人一起完成</span></div>
+        <div class="next-row">
+          <article class="next-card"><small>采购清单</small><strong>还有 6 样待买</strong><span>带上清单去逛逛 →</span></article>
+          <article class="next-card"><small>菜谱仓库</small><strong>收藏了 3 道</strong><span>下次想吃什么？</span></article>
+        </div>
+
+        <nav aria-label="底部导航">
+          <div class="nav-item active"><i class="nav-icon"></i><span>餐桌</span></div>
+          <div class="nav-item"><i class="nav-icon"></i><span>菜谱</span></div>
+          <div class="nav-item"><i class="nav-icon"></i><span>采购</span></div>
+          <div class="nav-item"><i class="nav-icon"></i><span>我们的</span></div>
+        </nav>
+      </div>
+    </section>
+
+    <aside class="notes">
+      <div class="kicker">WARMER DIRECTION · V1</div>
+      <h2>温度不只来自<br />一层米白色。</h2>
+      <p>让两个人、小餐桌和生活里的手写痕迹进入画面，同时保留工具应有的清晰。</p>
+      <div class="palette" aria-label="基础色板">
+        <i class="swatch" style="background:#fff8ee"></i><i class="swatch" style="background:#44372f"></i><i class="swatch" style="background:#e77c64"></i><i class="swatch" style="background:#8eaa82"></i><i class="swatch" style="background:#f4c95d"></i>
+      </div>
+      <div class="changes"><b>本轮变化</b><br />两只小碗作为关系线索<br />纸张层叠、胶带与手写批注<br />从数据描述改为餐桌语言<br />弱化规整仪表盘感</div>
+    </aside>
+  </main>
+</body>
+</html>

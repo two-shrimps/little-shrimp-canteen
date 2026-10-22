@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>小虾食堂 · 三屏视觉方向 v2</title>
+  <style>
+    :root {
+      --paper: #fff8ee; --surface: #fffcf7; --ink: #44372f; --muted: #74645a;
+      --line: #ded3c8; --tomato: #e77c64; --tomato-dark: #8d4436;
+      --sage: #8eaa82; --yolk: #f4c95d; --sky: #afcbd8;
+      --shadow: 0 22px 58px rgba(68,55,47,.17);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(244,201,93,.22), transparent 26%),
+        radial-gradient(circle at 86% 80%, rgba(142,170,130,.2), transparent 28%),
+        linear-gradient(135deg, #eadfd5, #f4ece3 50%, #e8e4d8);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .32;
+      background-image: radial-gradient(rgba(68,55,47,.12) .65px, transparent .7px);
+      background-size: 8px 8px;
+    }
+    .canvas { width: 1500px; height: 1040px; margin: 0 auto; padding: 46px 50px 42px; position: relative; overflow: hidden; }
+    .intro { display: flex; align-items: end; justify-content: space-between; margin: 0 10px 30px; }
+    .kicker { color: var(--tomato-dark); font-size: 12px; font-weight: 800; letter-spacing: .17em; }
+    h1 { margin: 9px 0 0; font: 700 34px/1.2 "Kaiti SC", "STKaiti", "PingFang SC", sans-serif; letter-spacing: -.02em; }
+    .intro p { margin: 0 0 2px; color: var(--muted); font-size: 13px; line-height: 1.7; text-align: right; }
+    .screens { display: grid; grid-template-columns: repeat(3, 390px); justify-content: space-between; align-items: start; }
+    .screen-group { position: relative; }
+    .screen-group:nth-child(2) { margin-top: 20px; }
+    .screen-label { margin: 0 0 11px 18px; display: flex; gap: 9px; align-items: center; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .screen-label b { color: var(--tomato-dark); font-size: 11px; letter-spacing: .08em; }
+    .phone {
+      width: 390px; height: 808px; overflow: hidden; position: relative;
+      border: 7px solid #342d29; border-radius: 44px; background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .phone::before { content: ""; position: absolute; z-index: 10; width: 112px; height: 25px; left: 50%; top: 10px; transform: translateX(-50%); border-radius: 99px; background: #342d29; }
+    .page { height: 100%; position: relative; overflow: hidden; padding: 48px 18px 91px; background: radial-gradient(circle at 14px 14px, rgba(68,55,47,.023) 1px, transparent 1.2px) 0 0/20px 20px, var(--paper); }
+    .status { position: absolute; top: 18px; left: 22px; right: 22px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; }
+    .status span:last-child { letter-spacing: .12em; }
+    .titlebar { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
+    .eyebrow { margin: 0 0 5px; color: var(--tomato-dark); font-size: 11px; font-weight: 750; }
+    h2 { margin: 0; font-size: 25px; line-height: 1.25; letter-spacing: -.025em; }
+    .round-button { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(68,55,47,.1); border-radius: 15px; background: var(--surface); color: var(--ink); font-size: 21px; box-shadow: 0 5px 15px rgba(68,55,47,.07); }
+    .hand { font-family: "Kaiti SC", "STKaiti", "PingFang SC", sans-serif; }
+
+    /* 首页 */
+    .home .page::after { content: ""; position: absolute; width: 180px; height: 180px; right: -88px; top: 57px; border-radius: 50%; background: rgba(244,201,93,.18); }
+    .home h2 { width: 245px; font: 700 28px/1.3 "Kaiti SC", "STKaiti", "PingFang SC", sans-serif; }
+    .underline { position: relative; z-index: 0; white-space: nowrap; }
+    .underline::after { content: ""; position: absolute; z-index: -1; left: -2px; right: -3px; bottom: 0; height: 8px; border-radius: 50%; background: rgba(244,201,93,.48); transform: rotate(-1.5deg); }
+    .bowls { width: 72px; height: 60px; position: relative; z-index: 2; }
+    .bowl { position: absolute; width: 39px; height: 24px; border: 2px solid var(--ink); border-top: 0; border-radius: 3px 3px 18px 18px; bottom: 4px; background: var(--tomato); transform: rotate(-7deg); }
+    .bowl.second { right: 0; top: 3px; bottom: auto; background: var(--sage); transform: rotate(8deg) scale(.9); }
+    .bowl::before { content: "••"; position: absolute; top: 1px; left: 9px; font-size: 9px; letter-spacing: 7px; }
+    .bowl::after { content: ""; position: absolute; left: 15px; top: 13px; width: 8px; height: 4px; border-bottom: 1.5px solid var(--ink); border-radius: 50%; }
+    .tabs { display: flex; gap: 8px; margin: 18px 0 14px; position: relative; z-index: 2; }
+    .tab { min-height: 38px; padding: 0 13px; display: grid; place-items: center; border-radius: 999px; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .tab.active { background: #f7ded6; color: var(--tomato-dark); border: 1px solid rgba(141,68,54,.08); }
+    .meal-wrap { position: relative; padding-bottom: 13px; }
+    .tape { position: absolute; z-index: 4; left: 24px; top: -8px; width: 70px; height: 22px; background: rgba(244,201,93,.7); transform: rotate(-3deg); }
+    .meal { overflow: hidden; border-radius: 7px 22px 19px 21px; background: var(--surface); border: 1px solid rgba(68,55,47,.1); box-shadow: 0 10px 26px rgba(68,55,47,.1); transform: rotate(-.3deg); }
+    .meal-photo { height: 205px; position: relative; background: linear-gradient(180deg, transparent 38%, rgba(40,25,18,.7)), url("../assets/food-table.jpg") center 52%/cover; filter: saturate(.88) sepia(.05); }
+    .photo-tag { position: absolute; top: 15px; left: 14px; padding: 6px 9px; border-radius: 5px 9px 7px 6px; background: rgba(255,252,247,.92); font-size: 11px; font-weight: 750; transform: rotate(-2deg); }
+    .photo-copy { position: absolute; left: 16px; right: 16px; bottom: 14px; color: white; }
+    .photo-copy strong { display: block; font-size: 20px; margin-bottom: 4px; }
+    .photo-copy span { font-size: 11px; opacity: .9; }
+    .meal-foot { padding: 13px 14px 15px; display: flex; justify-content: space-between; align-items: center; }
+    .meal-foot strong { display: block; font-size: 13px; margin-bottom: 3px; }
+    .meal-foot small { color: var(--muted); font-size: 10px; }
+    .soft-button { min-height: 42px; padding: 0 13px; border: 1px solid rgba(141,68,54,.14); border-radius: 14px; color: var(--tomato-dark); background: #fff5f0; font-weight: 760; }
+    .note { position: absolute; z-index: 5; right: -1px; bottom: 0; width: 184px; padding: 8px 11px; border: 1px solid rgba(68,55,47,.09); border-radius: 5px 11px 7px 10px; background: #edf3e8; color: #536b4a; box-shadow: 0 7px 16px rgba(68,55,47,.08); transform: rotate(2deg); font-size: 11px; font-weight: 700; }
+    .small-head { margin: 15px 2px 9px; display: flex; justify-content: space-between; align-items: end; }
+    .small-head strong { font-size: 16px; } .small-head span { color: var(--muted); font-size: 10px; }
+    .home-actions { display: grid; grid-template-columns: 1.12fr .88fr; gap: 9px; }
+    .mini-card { min-height: 80px; padding: 12px 13px; border-radius: 17px; border: 1px solid rgba(68,55,47,.09); background: var(--surface); }
+    .mini-card:first-child { background: #eef3e9; }
+    .mini-card small { display: block; color: var(--muted); font-size: 10px; margin-bottom: 6px; }
+    .mini-card strong { display: block; font-size: 14px; margin-bottom: 3px; }
+    .mini-card span { color: var(--tomato-dark); font-size: 10px; font-weight: 700; }
+
+    /* 配餐 */
+    .balance .page { background: linear-gradient(180deg, rgba(175,203,216,.15), transparent 30%), var(--paper); }
+    .meal-summary { margin-top: 17px; display: grid; grid-template-columns: 82px 1fr; gap: 13px; padding: 12px; border-radius: 21px; background: var(--surface); border: 1px solid rgba(68,55,47,.1); }
+    .thumb { border-radius: 16px; background: url("../assets/food-table.jpg") center/cover; min-height: 80px; }
+    .summary-copy { align-self: center; }
+    .summary-copy strong { display: block; font-size: 15px; margin-bottom: 5px; }
+    .summary-copy span { color: var(--muted); font-size: 11px; }
+    .chips { display: flex; gap: 6px; margin-top: 9px; }
+    .chip { padding: 5px 8px; border-radius: 999px; background: #f7eee3; font-size: 9px; font-weight: 700; }
+    .balance-title { margin: 18px 2px 10px; font-size: 16px; }
+    .check-list { display: grid; gap: 8px; }
+    .check { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: center; min-height: 58px; padding: 9px 12px; border-radius: 17px; background: rgba(255,252,247,.84); border: 1px solid rgba(68,55,47,.08); }
+    .check-icon { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 10px; background: #e5efe0; color: #5f7656; font-size: 13px; font-weight: 900; }
+    .check.warn .check-icon { background: #fbefc7; color: var(--tomato-dark); }
+    .check strong { display: block; font-size: 13px; margin-bottom: 2px; } .check span { color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .suggestion { margin-top: 12px; padding: 14px; border-radius: 8px 21px 18px 20px; background: #f4e4dc; border: 1px dashed rgba(141,68,54,.24); position: relative; }
+    .suggestion::before { content: "AI 小建议"; position: absolute; right: 15px; top: -9px; padding: 4px 8px; border-radius: 5px; background: var(--yolk); font: 700 10px/1 "Kaiti SC", "STKaiti", sans-serif; transform: rotate(2deg); }
+    .suggestion strong { display: block; font-size: 15px; margin-bottom: 5px; }
+    .suggestion p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
+    .suggestion-actions { display: flex; gap: 7px; margin-top: 11px; }
+    .primary-small, .plain-small { min-height: 38px; padding: 0 12px; border-radius: 12px; font-weight: 760; font-size: 11px; }
+    .primary-small { border: 0; color: white; background: var(--tomato-dark); }
+    .plain-small { border: 1px solid rgba(68,55,47,.13); color: var(--ink); background: var(--surface); }
+    .sticky-action { position: absolute; left: 18px; right: 18px; bottom: 18px; min-height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 17px; color: white; background: var(--tomato-dark); font-size: 14px; font-weight: 780; box-shadow: 0 9px 20px rgba(141,68,54,.22); }
+
+    /* 采购 */
+    .shopping .page { padding-left: 0; padding-right: 0; background: var(--paper); }
+    .shopping .titlebar, .shopping .progress, .shopping .list-head { margin-left: 18px; margin-right: 18px; }
+    .progress { margin-top: 16px; padding: 14px; border-radius: 20px; background: #edf3e8; border: 1px solid rgba(83,107,74,.1); }
+    .progress-top { display: flex; justify-content: space-between; align-items: end; margin-bottom: 9px; }
+    .progress-top strong { font-size: 14px; } .progress-top span { color: #5d7655; font-size: 11px; font-weight: 750; }
+    .bar { height: 7px; border-radius: 99px; background: rgba(68,55,47,.09); overflow: hidden; }
+    .bar::after { content: ""; display: block; width: 62%; height: 100%; border-radius: inherit; background: var(--sage); }
+    .list-head { margin-top: 18px; margin-bottom: 7px; display: flex; justify-content: space-between; align-items: center; }
+    .list-head strong { font-size: 13px; } .list-head span { color: var(--muted); font-size: 10px; }
+    .item { min-height: 66px; display: grid; grid-template-columns: 31px 1fr auto; gap: 10px; align-items: center; padding: 8px 20px 8px 18px; border-bottom: 1px solid rgba(68,55,47,.075); background: rgba(255,252,247,.44); }
+    .box { width: 28px; height: 28px; display: grid; place-items: center; border: 1.8px solid var(--line); border-radius: 10px; color: white; font-size: 14px; font-weight: 900; }
+    .item.done .box { border-color: var(--sage); background: var(--sage); }
+    .item-copy strong { display: block; font-size: 14px; margin-bottom: 3px; } .item-copy span { color: var(--muted); font-size: 10px; }
+    .item.done .item-copy strong { color: #93877f; text-decoration: line-through; }
+    .price { color: var(--ink); font-variant-numeric: tabular-nums; font-size: 12px; font-weight: 750; }
+    .have { padding: 5px 7px; border-radius: 8px; color: #5c7554; background: #e6efdf; font-size: 9px; font-weight: 750; }
+    .add-line { min-height: 48px; margin: 12px 18px 0; display: flex; align-items: center; gap: 8px; color: var(--tomato-dark); font-size: 12px; font-weight: 750; border: 1px dashed rgba(141,68,54,.26); border-radius: 15px; padding: 0 13px; }
+    .total { position: absolute; z-index: 4; left: 13px; right: 13px; bottom: 12px; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 13px 0 17px; border-radius: 22px; background: rgba(255,252,247,.97); border: 1px solid rgba(68,55,47,.1); box-shadow: 0 9px 28px rgba(68,55,47,.14); }
+    .total small { display: block; color: var(--muted); font-size: 9px; margin-bottom: 3px; } .total strong { font-size: 19px; font-variant-numeric: tabular-nums; }
+    .finish { min-height: 45px; padding: 0 17px; border: 0; border-radius: 14px; color: white; background: var(--tomato-dark); font-weight: 780; }
+
+    .bottom-nav { position: absolute; z-index: 5; left: 12px; right: 12px; bottom: 12px; height: 70px; display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid rgba(68,55,47,.1); border-radius: 22px; background: rgba(255,252,247,.96); box-shadow: 0 9px 26px rgba(68,55,47,.13); backdrop-filter: blur(14px); }
+    .nav { display: grid; place-content: center; gap: 4px; text-align: center; color: #9b8d84; font-size: 9px; }
+    .nav i { width: 19px; height: 18px; margin: auto; border: 1.7px solid currentColor; border-radius: 6px 6px 8px 8px; }
+    .nav.active { color: var(--tomato-dark); font-weight: 750; } .nav.active i { background: #f6dfd9; }
+    .footnote { position: absolute; left: 50px; right: 50px; bottom: 16px; color: var(--muted); font-size: 10px; text-align: center; letter-spacing: .03em; }
+  </style>
+</head>
+<body>
+  <main class="canvas">
+    <header class="intro">
+      <div><div class="kicker">LITTLE SHRIMP CANTEEN · VISUAL DIRECTION V2</div><h1>温暖亲和 × 私人餐桌手账</h1></div>
+      <p>同一套视觉语言，在三种信息密度里接受检验。<br />情绪留在该出现的地方，工具仍然清楚可靠。</p>
+    </header>
+
+    <section class="screens">
+      <div class="screen-group">
+        <div class="screen-label"><b>01</b> 餐桌首页 · 情绪浓度高</div>
+        <article class="phone home"><div class="page">
+          <div class="status"><span>20:41</span><span>••• ▰</span></div>
+          <header class="titlebar"><div><p class="eyebrow">10 月 21 日 · 星期三</p><h2>晚上好，今天也<br />一起<span class="underline">好好吃饭</span>。</h2></div><div class="bowls"><i class="bowl"></i><i class="bowl second"></i></div></header>
+          <div class="tabs"><span class="tab active">今晚</span><span class="tab">明天</span><span class="tab">这一周</span></div>
+          <div class="meal-wrap"><i class="tape"></i><article class="meal"><div class="meal-photo"><span class="photo-tag hand">今晚的小餐桌</span><div class="photo-copy"><strong>番茄牛腩小餐桌</strong><span>2 人份 · 慢慢做，约 45 分钟</span></div></div><div class="meal-foot"><div><strong>三道菜，刚好装满一张桌</strong><small>番茄牛腩 · 白灼菜心 · 米饭</small></div><button class="soft-button">看看菜单</button></div></article><div class="note hand">一起动手的话，很快就能开饭。</div></div>
+          <div class="small-head"><strong>开饭前的小事</strong><span>两个人一起完成</span></div>
+          <div class="home-actions"><article class="mini-card"><small>采购清单</small><strong>还有 6 样待买</strong><span>带上清单去逛逛 →</span></article><article class="mini-card"><small>菜谱仓库</small><strong>收藏了 3 道</strong><span>下次想吃什么？</span></article></div>
+          <nav class="bottom-nav"><span class="nav active"><i></i>餐桌</span><span class="nav"><i></i>菜谱</span><span class="nav"><i></i>采购</span><span class="nav"><i></i>我们的</span></nav>
+        </div></article>
+      </div>
+
+      <div class="screen-group">
+        <div class="screen-label"><b>02</b> AI 配餐 · 情绪与信息平衡</div>
+        <article class="phone balance"><div class="page">
+          <div class="status"><span>20:41</span><span>••• ▰</span></div>
+          <header class="titlebar"><div><p class="eyebrow">周三晚餐 · 2 人</p><h2>这顿饭搭配得<br />怎么样？</h2></div><button class="round-button">×</button></header>
+          <article class="meal-summary"><div class="thumb"></div><div class="summary-copy"><strong>今晚的三道菜</strong><span>约 680 kcal / 人 · 45 分钟</span><div class="chips"><i class="chip">1 荤</i><i class="chip">1 素菜</i><i class="chip">1 主食</i></div></div></article>
+          <h3 class="balance-title">一眼看看搭配</h3>
+          <div class="check-list"><article class="check"><i class="check-icon">✓</i><div><strong>蛋白质够两个人吃</strong><span>牛腩的份量合适，不用再加肉菜。</span></div></article><article class="check"><i class="check-icon">✓</i><div><strong>蔬菜也照顾到了</strong><span>菜心刚好补上这一餐的绿叶菜。</span></div></article><article class="check warn"><i class="check-icon">!</i><div><strong>时间上有一点挤</strong><span>两道菜会同时用到炒锅，可以错开 8 分钟。</span></div></article></div>
+          <article class="suggestion"><strong>先炖牛腩，再处理菜心</strong><p>这样不用着急换锅，米饭也能刚好一起熟。</p><div class="suggestion-actions"><button class="primary-small">照这个顺序做</button><button class="plain-small">保持原计划</button></div></article>
+          <div class="sticky-action">生成采购清单</div>
+        </div></article>
+      </div>
+
+      <div class="screen-group">
+        <div class="screen-label"><b>03</b> 采购清单 · 效率优先</div>
+        <article class="phone shopping"><div class="page">
+          <div class="status"><span>18:12</span><span>••• ▰</span></div>
+          <header class="titlebar"><div><p class="eyebrow">今晚的小餐桌</p><h2>采购清单</h2></div><button class="round-button">＋</button></header>
+          <article class="progress"><div class="progress-top"><strong>已经装进篮子 6 样</strong><span>6 / 10</span></div><div class="bar"></div></article>
+          <div class="list-head"><strong>蔬菜水果</strong><span>4 样</span></div>
+          <div class="item done"><i class="box">✓</i><div class="item-copy"><strong>番茄</strong><span>计划 5 个 · 实际 620g</span></div><b class="price">¥ 8.60</b></div>
+          <div class="item"><i class="box"></i><div class="item-copy"><strong>菜心</strong><span>1 把 · 约 300g</span></div><b class="price">待买</b></div>
+          <div class="item done"><i class="box">✓</i><div class="item-copy"><strong>生姜</strong><span>1 小块</span></div><b class="price">¥ 2.90</b></div>
+          <div class="list-head"><strong>肉禽蛋奶</strong><span>3 样</span></div>
+          <div class="item done"><i class="box">✓</i><div class="item-copy"><strong>牛腩</strong><span>计划 500g · 实际 620g</span></div><b class="price">¥ 42.80</b></div>
+          <div class="item"><i class="box"></i><div class="item-copy"><strong>鸡蛋</strong><span>菜谱需要 2 个</span></div><b class="have">家里已有</b></div>
+          <div class="add-line"><b>＋</b> 临时加一样东西</div>
+          <footer class="total"><div><small>当前合计</small><strong>¥ 54.30</strong></div><button class="finish">完成采购</button></footer>
+        </div></article>
+      </div>
+    </section>
+    <div class="footnote">v2 视觉方向预览 · 真实图标、品牌角色与完整交互将在方向确认后展开</div>
+  </main>
+</body>
+</html>

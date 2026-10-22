@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>小虾食堂 · 生活手账视觉 v4</title>
+  <style>
+    :root {
+      --paper: #fff9ef; --surface: #fffdf9; --ink: #403630; --muted: #7b6b61;
+      --line: #d9cec3; --tomato: #d97761; --tomato-dark: #854639;
+      --sage: #8ca17b; --sage-light: #e8ede2; --yolk: #eec766; --blue: #a9c6d1;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    button { font: inherit; }
+    body {
+      color: var(--ink);
+      background: radial-gradient(circle at 17% 18%, rgba(238,199,102,.2), transparent 22%), radial-gradient(circle at 86% 79%, rgba(140,161,123,.17), transparent 28%), #e7ded4;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .18; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
+    }
+    .canvas { width: 1500px; height: 1080px; margin: 0 auto; padding: 42px 48px 34px; overflow: hidden; position: relative; }
+    .intro { display: flex; justify-content: space-between; align-items: end; margin: 0 7px 29px; }
+    .kicker { margin-bottom: 9px; color: var(--tomato-dark); font-size: 10px; font-weight: 800; letter-spacing: .19em; }
+    h1 { margin: 0; font-family: "Songti SC", "STSong", serif; font-size: 38px; line-height: 1.12; letter-spacing: -.035em; font-weight: 700; }
+    .intro p { margin: 0 0 3px; max-width: 380px; color: var(--muted); font-size: 12px; line-height: 1.75; text-align: right; }
+    .screens { display: grid; grid-template-columns: repeat(3, 390px); justify-content: space-between; align-items: start; }
+    .screen-wrap:nth-child(2) { margin-top: 18px; }
+    .label { height: 27px; margin: 0 0 10px 18px; color: var(--muted); font-size: 11px; letter-spacing: .04em; }
+    .label b { margin-right: 9px; color: var(--tomato-dark); font-size: 10px; letter-spacing: .13em; }
+    .phone { width: 390px; height: 838px; overflow: hidden; position: relative; border: 7px solid #332d29; border-radius: 43px; background: var(--paper); box-shadow: 0 32px 70px rgba(64,54,48,.22); }
+    .phone::before { content: ""; position: absolute; z-index: 20; top: 10px; left: 50%; width: 108px; height: 24px; transform: translateX(-50%); border-radius: 99px; background: #332d29; }
+    .page { height: 100%; position: relative; overflow: hidden; padding: 50px 20px 91px; background: var(--paper); }
+    .status { position: absolute; z-index: 5; top: 18px; left: 23px; right: 23px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 750; }
+    .status span:last-child { letter-spacing: .12em; }
+    .page-head { display: flex; justify-content: space-between; align-items: center; }
+    .date { margin: 0 0 4px; color: var(--tomato-dark); font-size: 10px; font-weight: 780; letter-spacing: .08em; }
+    h2 { margin: 0; font-family: "Songti SC", "STSong", serif; font-size: 27px; line-height: 1.25; letter-spacing: -.025em; }
+    .avatar-pair { display: flex; align-items: center; }
+    .avatar { width: 33px; height: 33px; display: grid; place-items: center; border-radius: 50%; border: 2px solid var(--paper); color: var(--ink); background: var(--tomato); font-size: 10px; font-weight: 800; }
+    .avatar:last-child { margin-left: -9px; background: var(--sage); }
+    .hand { font-family: "Kaiti SC", "STKaiti", "PingFang SC", sans-serif; }
+
+    /* home editorial collage */
+    .home .page { padding-left: 0; padding-right: 0; }
+    .home .page-head { padding: 0 20px; }
+    .home-lede { margin: 12px 20px 14px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .collage { height: 332px; position: relative; }
+    .hero-photo { position: absolute; left: 20px; top: 0; width: 278px; height: 264px; background: linear-gradient(180deg, transparent 55%, rgba(48,32,23,.25)), url("../assets/food-table.jpg") center/cover; box-shadow: 0 12px 27px rgba(64,54,48,.11); }
+    .vertical-date { position: absolute; top: 10px; right: 22px; writing-mode: vertical-rl; color: var(--muted); font-size: 9px; font-weight: 750; letter-spacing: .15em; }
+    .caption { position: absolute; left: 39px; top: 236px; width: 226px; padding: 11px 13px 12px; background: var(--surface); box-shadow: 0 8px 18px rgba(64,54,48,.1); transform: rotate(-1.2deg); }
+    .caption strong { display: block; font-family: "Songti SC", "STSong", serif; font-size: 17px; margin-bottom: 4px; }
+    .caption span { color: var(--muted); font-size: 9px; }
+    .hand-note { position: absolute; right: 20px; bottom: 9px; width: 108px; color: var(--tomato-dark); font-size: 12px; line-height: 1.45; transform: rotate(4deg); }
+    .hand-note::before { content: ""; display: block; width: 42px; height: 22px; margin: 0 0 2px 5px; border-top: 1.5px solid var(--tomato); border-radius: 50%; transform: rotate(-18deg); }
+    .home-section { padding: 0 20px; }
+    .section-line { display: flex; justify-content: space-between; align-items: end; padding-bottom: 8px; border-bottom: 1px solid var(--ink); }
+    .section-line strong { font-family: "Songti SC", "STSong", serif; font-size: 17px; }
+    .section-line span { color: var(--muted); font-size: 9px; }
+    .menu-row { min-height: 60px; display: grid; grid-template-columns: 30px 1fr auto; gap: 10px; align-items: center; border-bottom: 1px solid rgba(64,54,48,.13); }
+    .menu-row i { color: var(--tomato-dark); font: 750 10px/1 Georgia, serif; font-style: italic; }
+    .menu-row strong { display: block; font-size: 13px; margin-bottom: 2px; }
+    .menu-row small { color: var(--muted); font-size: 9px; }
+    .tag { padding: 5px 7px; color: #5c7053; background: var(--sage-light); border-radius: 999px; font-size: 8px; font-weight: 750; }
+    .home-action { min-height: 48px; margin: 13px 20px 0; display: flex; justify-content: space-between; align-items: center; padding: 0 14px 0 16px; border: 0; color: white; background: var(--tomato-dark); font-size: 12px; font-weight: 750; }
+    .home-action span:last-child { font-size: 18px; }
+
+    /* week scrapbook */
+    .week .page { background: linear-gradient(90deg, transparent 0 51px, rgba(217,119,97,.09) 52px, transparent 53px), repeating-linear-gradient(0deg, transparent 0 28px, rgba(64,54,48,.035) 29px), var(--paper); }
+    .week-intro { margin: 9px 0 14px; color: var(--muted); font-size: 10px; }
+    .week-strip { display: grid; grid-template-columns: repeat(5,1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+    .day { padding: 8px 0; text-align: center; color: var(--muted); font-size: 9px; }
+    .day b { display: block; margin-top: 3px; color: var(--ink); font-family: Georgia, serif; font-size: 14px; font-weight: 500; }
+    .day.active { color: white; background: var(--tomato-dark); } .day.active b { color: white; }
+    .spread { position: relative; height: 465px; margin-top: 15px; }
+    .spread-photo-main { position: absolute; left: 7px; top: 10px; width: 235px; height: 184px; padding: 7px 7px 28px; background: white; box-shadow: 0 8px 19px rgba(64,54,48,.12); transform: rotate(-2.1deg); }
+    .spread-photo-main::before { content: ""; display: block; height: 100%; background: url("../assets/cooking-together.jpg") center/cover; }
+    .spread-photo-main::after { content: "今天一起下厨"; position: absolute; left: 12px; bottom: 8px; font: 700 10px/1 "Kaiti SC", "STKaiti", sans-serif; }
+    .mini-photo { position: absolute; right: 5px; top: 114px; width: 126px; height: 142px; padding: 6px 6px 24px; background: white; box-shadow: 0 7px 18px rgba(64,54,48,.12); transform: rotate(3.2deg); }
+    .mini-photo::before { content: ""; display: block; height: 100%; background: url("../assets/food-prep.jpg") center/cover; }
+    .mini-photo::after { content: "备菜中…"; position: absolute; left: 9px; bottom: 7px; color: var(--muted); font: 700 9px/1 "Kaiti SC", "STKaiti", sans-serif; }
+    .memo { position: absolute; left: 3px; top: 229px; width: 204px; padding: 14px 15px; background: #f5e7c0; box-shadow: 0 6px 15px rgba(64,54,48,.09); transform: rotate(1.5deg); }
+    .memo strong { display: block; margin-bottom: 6px; font-size: 13px; }
+    .memo p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
+    .memo::after { content: "她"; position: absolute; right: 10px; bottom: 8px; width: 22px; height: 22px; display: grid; place-items: center; border: 1px solid var(--tomato-dark); border-radius: 50%; color: var(--tomato-dark); font-size: 8px; transform: rotate(-8deg); }
+    .week-menu { position: absolute; right: 0; top: 283px; width: 151px; padding: 12px; border: 1px solid rgba(64,54,48,.27); background: rgba(255,253,249,.88); }
+    .week-menu .tiny { color: var(--tomato-dark); font-size: 8px; font-weight: 800; letter-spacing: .1em; }
+    .week-menu strong { display: block; margin: 7px 0 8px; font-family: "Songti SC", "STSong", serif; font-size: 15px; }
+    .week-menu span { display: block; padding: 5px 0; color: var(--muted); border-top: 1px solid rgba(64,54,48,.12); font-size: 9px; }
+    .scribble { position: absolute; left: 20px; bottom: 15px; color: var(--sage); font-size: 12px; transform: rotate(-4deg); }
+    .scribble::after { content: ""; position: absolute; left: -6px; top: -5px; width: 112px; height: 28px; border: 1.5px solid var(--sage); border-radius: 50%; transform: rotate(2deg); }
+    .week-button { position: absolute; left: 20px; right: 20px; bottom: 20px; min-height: 49px; border: 1px solid var(--ink); color: var(--ink); background: var(--surface); font-size: 12px; font-weight: 750; box-shadow: 4px 4px 0 rgba(64,54,48,.11); }
+
+    /* cooking memory */
+    .memory .page { padding-left: 0; padding-right: 0; background: var(--surface); }
+    .memory .page-head { padding: 0 20px; }
+    .memory-photo { height: 315px; margin-top: 14px; position: relative; background: linear-gradient(180deg, transparent 60%, rgba(40,25,18,.48)), url("../assets/food-table.jpg") center 52%/cover; }
+    .memory-photo::after { content: "03"; position: absolute; right: 15px; bottom: 10px; color: white; font-family: Georgia, serif; font-size: 40px; font-style: italic; opacity: .9; }
+    .record { padding: 18px 20px 0; position: relative; }
+    .record-date { color: var(--tomato-dark); font-size: 9px; font-weight: 800; letter-spacing: .14em; }
+    .record h3 { margin: 7px 0 5px; font-family: "Songti SC", "STSong", serif; font-size: 24px; font-weight: 700; }
+    .record-meta { color: var(--muted); font-size: 10px; }
+    .scores { display: grid; grid-template-columns: 1fr 1fr; margin-top: 15px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+    .score { padding: 11px 10px 10px 0; } .score + .score { padding-left: 13px; border-left: 1px solid rgba(64,54,48,.22); }
+    .score small { color: var(--muted); font-size: 9px; }
+    .score strong { display: block; margin-top: 4px; font-family: Georgia, serif; font-size: 20px; font-weight: 500; }
+    .comments { margin-top: 15px; display: grid; gap: 11px; }
+    .comment { display: grid; grid-template-columns: 29px 1fr; gap: 10px; align-items: start; }
+    .who { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--tomato); font-size: 9px; font-weight: 800; }
+    .comment:last-child .who { background: var(--sage); }
+    .comment p { margin: 0; padding: 8px 10px; color: var(--ink); background: #f7eee5; font-size: 11px; line-height: 1.5; }
+    .next-time { margin: 14px 20px 0; padding: 11px 13px; position: relative; background: #f3e6bc; font-size: 11px; transform: rotate(-.7deg); }
+    .next-time b { color: var(--tomato-dark); }
+    .save-row { position: absolute; left: 20px; right: 20px; bottom: 20px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 8px; }
+    .outline, .solid { min-height: 49px; font-size: 12px; font-weight: 760; }
+    .outline { border: 1px solid var(--ink); color: var(--ink); background: var(--surface); }
+    .solid { border: 0; color: white; background: var(--tomato-dark); }
+
+    .bottom-nav { position: absolute; z-index: 10; left: 12px; right: 12px; bottom: 11px; height: 68px; display: grid; grid-template-columns: repeat(4,1fr); border-radius: 22px; background: rgba(255,253,249,.96); border: 1px solid rgba(64,54,48,.12); box-shadow: 0 8px 23px rgba(64,54,48,.12); backdrop-filter: blur(14px); }
+    .nav { display: grid; place-content: center; gap: 4px; text-align: center; color: #9b8e85; font-size: 9px; }
+    .nav i { width: 18px; height: 17px; margin: auto; border: 1.5px solid currentColor; border-radius: 5px; }
+    .nav.active { color: var(--tomato-dark); font-weight: 780; } .nav.active i { border-radius: 50%; background: #f5ddd7; }
+    .footer { position: absolute; bottom: 11px; left: 50px; right: 50px; text-align: center; color: var(--muted); font-size: 9px; letter-spacing: .06em; }
+  </style>
+</head>
+<body>
+  <main class="canvas">
+    <header class="intro"><div><div class="kicker">LITTLE SHRIMP CANTEEN · VISUAL DIRECTION 04</div><h1>成熟的生活手账，不是一面贴纸墙。</h1></div><p>留白负责呼吸，照片保存真实生活，手写只留下两个人才懂的那句话。</p></header>
+    <section class="screens">
+      <div class="screen-wrap"><div class="label"><b>01 / TABLE</b> 餐桌首页 · 编辑式照片布局</div><article class="phone home"><div class="page"><div class="status"><span>20:41</span><span>••• ▰</span></div><header class="page-head"><div><p class="date">10 月 21 日 · 星期三</p><h2>今晚，也一起<br />好好吃饭。</h2></div><div class="avatar-pair"><i class="avatar">我</i><i class="avatar">她</i></div></header><p class="home-lede">有一道慢慢炖的牛腩，还有一盘刚好的青菜。</p><div class="collage"><div class="hero-photo"></div><div class="vertical-date">OUR TABLE · DINNER</div><div class="caption"><strong>番茄牛腩小餐桌</strong><span>2 人份 · 预计 45 分钟</span></div><div class="hand-note hand">她想吃软一点<br />再多炖一会儿</div></div><section class="home-section"><div class="section-line"><strong>今晚的菜单</strong><span>3 道 · 约 680 kcal / 人</span></div><div class="menu-row"><i>01</i><div><strong>番茄牛腩</strong><small>正在计划 · 主菜</small></div><b class="tag">共同喜欢</b></div><div class="menu-row"><i>02</i><div><strong>白灼菜心与热米饭</strong><small>搭配刚刚好</small></div><b class="tag">12 分钟</b></div></section><button class="home-action"><span>打开今晚菜单</span><span>→</span></button><nav class="bottom-nav"><span class="nav active"><i></i>餐桌</span><span class="nav"><i></i>菜谱</span><span class="nav"><i></i>采购</span><span class="nav"><i></i>我们的</span></nav></div></article></div>
+
+      <div class="screen-wrap"><div class="label"><b>02 / WEEK</b> 本周菜单 · 克制的拼贴</div><article class="phone week"><div class="page"><div class="status"><span>20:41</span><span>••• ▰</span></div><header class="page-head"><div><p class="date">OUR WEEK · 43</p><h2>这一周，想吃什么？</h2></div><div class="avatar-pair"><i class="avatar">我</i><i class="avatar">她</i></div></header><p class="week-intro">已经安排了 3 顿，还有两个晚上可以慢慢想。</p><div class="week-strip"><span class="day">MON<b>19</b></span><span class="day">TUE<b>20</b></span><span class="day active">WED<b>21</b></span><span class="day">FRI<b>23</b></span><span class="day">SUN<b>25</b></span></div><div class="spread"><div class="spread-photo-main"></div><div class="mini-photo"></div><article class="memo hand"><strong>周五想吃简单一点</strong><p>冰箱里还有豆腐和鸡蛋，买一把小葱就够了。</p></article><article class="week-menu"><span class="tiny">WEDNESDAY</span><strong>番茄牛腩</strong><span>白灼菜心</span><span>热米饭</span><span>2 人 · 45 分钟</span></article><div class="scribble hand">这顿我们一起做</div></div><button class="week-button">＋ 安排下一顿</button></div></article></div>
+
+      <div class="screen-wrap"><div class="label"><b>03 / MEMORY</b> 做菜记录 · 照片日记</div><article class="phone memory"><div class="page"><div class="status"><span>21:36</span><span>••• ▰</span></div><header class="page-head"><div><p class="date">OUR TABLE ARCHIVE</p><h2>今晚留下的味道</h2></div><button style="width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:var(--surface);font-size:18px">···</button></header><div class="memory-photo"></div><section class="record"><span class="record-date">2026.10.21 · WEDNESDAY</span><h3>番茄牛腩 · 第 3 次</h3><div class="record-meta">主厨：我 · 协作：她 · 实际用时 58 分钟</div><div class="scores"><div class="score"><small>我的评分</small><strong>4.5</strong></div><div class="score"><small>她的评分</small><strong>5.0</strong></div></div><div class="comments"><div class="comment"><i class="who">我</i><p>这次牛腩终于炖得够软了。</p></div><div class="comment"><i class="who">她</i><p>汤汁特别适合拌饭，愿意再做。</p></div></div></section><div class="next-time hand"><b>下次：</b>糖再少一点，番茄晚十分钟放。</div><div class="save-row"><button class="outline">保存记录</button><button class="solid">生成餐桌卡片</button></div></div></article></div>
+    </section>
+    <footer class="footer">Paper 式留白 × Day One 式照片记录 × 15% 数字拼贴细节</footer>
+  </main>
+</body>
+</html>
