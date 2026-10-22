@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "小虾食堂能力实验",
-    "slug": "expo-capabilities",
-    "scheme": "little-shrimp-capabilities",
+    "name": "小虾食堂",
+    "slug": "little-shrimp-canteen",
+    "scheme": "little-shrimp-canteen",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

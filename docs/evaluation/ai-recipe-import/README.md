@@ -5,7 +5,7 @@
 ## 目录约定
 
 ```text
-evaluation/ai-recipe-import/
+docs/evaluation/ai-recipe-import/
 ├── samples.local/          # 本地真实截图，Git 忽略
 │   └── sample-001/
 │       ├── 01.jpg

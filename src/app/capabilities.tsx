@@ -16,7 +16,7 @@ import * as Sharing from 'expo-sharing';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { colors, shadow } from './src/theme';
+import { colors, shadow } from '../theme';
 
 type TestStatus = 'idle' | 'running' | 'passed' | 'failed';
 type CapabilityKey = 'library' | 'camera' | 'compression' | 'sharing';
@@ -62,7 +62,7 @@ export default function App() {
       const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!permission.granted) {
         setCapability('library', 'failed', '相册权限未授权');
-        askToOpenSettings('请允许小虾食堂能力实验访问照片。');
+        askToOpenSettings('请允许小虾食堂访问照片。');
         return;
       }
 
@@ -93,7 +93,7 @@ export default function App() {
       const permission = await ImagePicker.requestCameraPermissionsAsync();
       if (!permission.granted) {
         setCapability('camera', 'failed', '相机权限未授权');
-        askToOpenSettings('请允许小虾食堂能力实验使用相机。');
+        askToOpenSettings('请允许小虾食堂使用相机。');
         return;
       }
 
@@ -180,7 +180,7 @@ export default function App() {
           <Text style={styles.eyebrow}>从截图导入菜谱</Text>
           <Text style={styles.title}>先选几张菜谱截图</Text>
           <Text style={styles.subtitle}>
-            支持一次选择多张图片。这个页面也用于阶段 0 的真机能力验证。
+            支持一次选择多张图片。这个内部页面用于真机能力诊断。
           </Text>
         </View>
 
