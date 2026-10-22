@@ -1,0 +1,4 @@
+samples.local/
+outputs.local/
+*.env
+.env*

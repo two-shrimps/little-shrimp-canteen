@@ -1,0 +1,29 @@
+{
+  "sample_id": "sample-001",
+  "image_files": ["01.jpg", "02.jpg"],
+  "traits": ["multi_image", "watermark", "ambiguous_units"],
+  "expected": {
+    "title": "番茄牛腩",
+    "servings": {
+      "text": "3～4 人份",
+      "value": null
+    },
+    "ingredients": [
+      {
+        "name_raw": "生抽",
+        "amount_raw": "一大勺",
+        "normalized_name": "生抽",
+        "quantity": null,
+        "unit": null,
+        "should_be_uncertain": true
+      }
+    ],
+    "steps": [
+      {
+        "position": 1,
+        "instruction": "牛腩焯水后洗净"
+      }
+    ],
+    "warnings": ["截图没有给出大勺的毫升数"]
+  }
+}
