@@ -1,0 +1,146 @@
+experiments/expo-capabilities/package-lock.json
+  s_70a2bd3a47e163::t_41fa2e981211b6 1-11410
+evaluation/ai-recipe-import/README.md
+  s_1cc9d376614921::t_558ae49f6d5de3 1-76
+evaluation/ai-recipe-import/sample.example.json
+  s_1cc9d376614921::t_558ae49f6d5de3 1-29
+docs/implementation-practice.md
+  s_70a2bd3a47e163::t_ff0bff2a5f80ab 199-200,205,863-873,876-885,938-947
+  s_70a2bd3a47e163::t_3c8c52b1b16c41 3,134-136,148,209-210,230,243-244,271,717,722-723,747-748,788,793-794
+  s_70a2bd3a47e163::t_b5fa712552518a 716
+  s_70a2bd3a47e163::t_6d6844e62c8fec 128,130
+experiments/expo-capabilities/README.md
+  s_1cc9d376614921::t_c7d95735cf7e83 1-2,5,29-34,37-48,50-59
+  s_ba6d94bcf19310::t_63579ba87ee492 3
+  s_70a2bd3a47e163::t_6d6844e62c8fec 4,6-28,49,60
+  s_1cc9d376614921::t_0bb62b9d2f41ef 35
+  s_1cc9d376614921::t_fc8b0199418146 36
+experiments/expo-capabilities/src/components/ProfileCard.tsx
+  s_1cc9d376614921::t_e85b3f4c80f461 1-48
+experiments/expo-capabilities/src/app/settings.tsx
+  s_1cc9d376614921::t_e28d54f28e1958 47
+  s_1cc9d376614921::t_79465e33135712 1-46,48-94
+experiments/expo-capabilities/src/app/_layout.tsx
+  s_1cc9d376614921::t_0bb62b9d2f41ef 1-2,5-6,23-24
+  s_1cc9d376614921::t_e85b3f4c80f461 3-4,7-22
+experiments/expo-capabilities/src/components/SettingsHeader.tsx
+  s_1cc9d376614921::t_e85b3f4c80f461 1-28
+experiments/expo-capabilities/src/profile-context.tsx
+  s_1cc9d376614921::t_e85b3f4c80f461 1-32
+supabase/schema.sql
+  s_70a2bd3a47e163::t_04c14b5d61f185 86-90,92-94,368-376
+  s_70a2bd3a47e163::t_5a50ccae156b59 22,27-31,33-37,364-365,367,377,399-400,402-410,412-413,416,592-596,604-623,633-647,655-669,677-691,696-710,718-732
+  s_1cc9d376614921::t_8a24f99a6014f4 566-583
+  s_70a2bd3a47e163::t_403ad30f1a8ade 23-26,32,91,366
+  s_1cc9d376614921::t_b299dc3c3165fa 240,242,309,313,389,445-449,470,472,483-493,498-515,518-542,555-558
+  s_1cc9d376614921::t_ec1418392eb04a 78,494-497,543-554,602
+  s_1cc9d376614921::t_7c06d086020e69 1-21,38-77,79-85,95-239,241,243-308,310-312,314-363,378-388,390-398,401,411,414-415,417-444,450-469,471,473-482,516-517,559-565,584-591,597-601,603,624-632,648-654,670-676,692-695,711-717,733-751
+experiments/expo-capabilities/tsconfig.json
+  s_1cc9d376614921::t_0bb62b9d2f41ef 4-9
+experiments/expo-capabilities/src/app/(tabs)/ours.tsx
+  s_1cc9d376614921::t_fc8b0199418146 13-14,23,60
+  s_1cc9d376614921::t_0bb62b9d2f41ef 4,9,44,49-50
+  s_1cc9d376614921::t_e85b3f4c80f461 1-2,16-18,63-64
+  s_1cc9d376614921::t_4af3f3e0d1cbba 3,5-8,10-12,15,19-22,24-43,45-48,51-59,62,65-83
+  s_1cc9d376614921::t_19eab1dc230088 61
+experiments/expo-capabilities/src/components/ScreenHeader.tsx
+  s_1cc9d376614921::t_7088f4077f2d1e 1-54
+experiments/expo-capabilities/app.json
+  s_1cc9d376614921::t_3a28a0df3fc1b2 18,39
+  s_1cc9d376614921::t_0bb62b9d2f41ef 5,36-38
+  s_1cc9d376614921::t_c7d95735cf7e83 3,9-17,21-23
+experiments/expo-capabilities/src/theme.ts
+  s_1cc9d376614921::t_7088f4077f2d1e 1-26
+experiments/expo-capabilities/src/app/diners.tsx
+  s_1cc9d376614921::t_79465e33135712 1-59
+experiments/expo-capabilities/src/app/(tabs)/recipes.tsx
+  s_1cc9d376614921::t_4af3f3e0d1cbba 1-3,5-14,16-17,19-50,53-75
+  s_1cc9d376614921::t_0bb62b9d2f41ef 4,15,18,51-52
+experiments/expo-capabilities/src/components/EditProfileSheet.tsx
+  s_1cc9d376614921::t_e28d54f28e1958 1,8,25
+  s_1cc9d376614921::t_34b66964ca4329 2-7,9-24,26-90
+experiments/expo-capabilities/.nvmrc
+  s_1cc9d376614921::t_c7d95735cf7e83 1
+evaluation/ai-recipe-import/.gitignore
+  s_1cc9d376614921::t_558ae49f6d5de3 1-4
+experiments/expo-capabilities/package.json
+  s_1cc9d376614921::t_ed6a5741732d9e 6-9,11-15,19,24-27
+  s_1cc9d376614921::t_aeb1d9db6e823d 17,20
+  s_1cc9d376614921::t_843ebee10221d3 18
+  s_1cc9d376614921::t_c7d95735cf7e83 33
+  s_1cc9d376614921::t_0bb62b9d2f41ef 4
+  s_1cc9d376614921::t_e85b3f4c80f461 10
+  s_1cc9d376614921::t_dc4c2accabd0d3 21
+experiments/expo-capabilities/src/components/LogoutSheet.tsx
+  s_1cc9d376614921::t_34b66964ca4329 1-49
+experiments/expo-capabilities/src/components/CalendarSheet.tsx
+  s_1cc9d376614921::t_8ebf798493691d 1-28,34-148,150-165
+  s_1cc9d376614921::t_8c32c44b2042b3 29-33,149
+experiments/expo-capabilities/src/app/(tabs)/_layout.tsx
+  s_1cc9d376614921::t_0bb62b9d2f41ef 1,3,11,13-16,21,36,38-39,50-52
+  s_1cc9d376614921::t_7088f4077f2d1e 2,4-10,12,17-20,22-35,37,40-49,53-66
+experiments/expo-capabilities/src/app/(tabs)/index.tsx
+  s_1cc9d376614921::t_fc8b0199418146 3,34-35,42,108
+  s_1cc9d376614921::t_e85b3f4c80f461 2,22,24
+  s_1cc9d376614921::t_8ebf798493691d 1,7,12-13,30,71,76-81
+  s_1cc9d376614921::t_7088f4077f2d1e 4-6,8-11,14-21,25-29,31-33,36-41,43-70,72-75,82-107,110-133
+  s_1cc9d376614921::t_734a0e5702e2b1 23
+  s_1cc9d376614921::t_19eab1dc230088 109
+README.md
+  s_70a2bd3a47e163::t_6d6844e62c8fec 87-94
+  s_70a2bd3a47e163::t_ff0bff2a5f80ab 75-77,85,95,98-101,103
+prototypes/user-settings-v1.html
+  s_6852d3c4c7f81d::t_8e55dca7a8ff38 1-39
+experiments/expo-capabilities/App.tsx
+  s_1cc9d376614921::t_0095ce01bb5b57 19-20,178,180-181,183,263-264,266-268,272-274,279,281-283,289,295,301,305-306,314,322-323,332-336
+  s_1cc9d376614921::t_c7d95735cf7e83 1-17,21-177,179,182,184-257,265,269-271,275-278,280,284-288,290-294,296-300,302-304,307-313,315-321,324-330
+experiments/expo-capabilities/AGENTS.md
+  s_1cc9d376614921::t_0c6179af1f374f 1-41
+prototypes/home-preview-v0.html
+  s_6852d3c4c7f81d::t_8e55dca7a8ff38 95,276
+experiments/expo-capabilities/src/app/(tabs)/shopping.tsx
+  s_1cc9d376614921::t_0bb62b9d2f41ef 3,18-19,57-58
+  s_1cc9d376614921::t_4af3f3e0d1cbba 1-2,4-17,20-56,59-89
+experiments/expo-capabilities/src/app/capabilities.tsx
+  s_1cc9d376614921::t_7088f4077f2d1e 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.51-trip",
+  "base_commit_sha": "c2a92b81932eeaba1c1d689d3e6416e227e00b88",
+  "prompts": {},
+  "sessions": {
+    "s_1cc9d376614921": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1628b-4e86-7561-ba0d-6e7a9cb6b8af",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    },
+    "s_6852d3c4c7f81d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a159bd-4bd9-7b50-89ff-6cd6efba8556",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "SuperKatrina123 <yingyuyan@zju.edu.cn>"
+    },
+    "s_70a2bd3a47e163": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1599d-8974-7793-a8b4-62fd717ad919",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "SuperKatrina123 <yingyuyan@zju.edu.cn>"
+    },
+    "s_ba6d94bcf19310": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a159ae-0581-7243-ae60-34d36705f1e7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "SuperKatrina123 <yingyuyan@zju.edu.cn>"
+    }
+  }
+}
