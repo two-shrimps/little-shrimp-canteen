@@ -1,0 +1,57 @@
+prototypes/home-preview-warm-v1.html
+  s_6852d3c4c7f81d::t_53777d2b35f9b2 1-306
+prototypes/visual-direction-ticket-v3.html
+  s_6852d3c4c7f81d::t_ef066c97bc052c 1-253
+prototypes/visual-direction-journal-v4.html
+  s_6852d3c4c7f81d::t_0adcea4ff43b21 1-143
+docs/design-resources.md
+  s_6852d3c4c7f81d::t_abfa960e99c872 1-21
+docs/product-prototype.md
+  s_70a2bd3a47e163::t_5789f88f623330 6,50,60-61,130-147,172-217,229-236,263,265-267,285-287,297-307,318,332-341,347
+  s_ba6d94bcf19310::t_3cccee9105690a 3-4
+  s_70a2bd3a47e163::t_5f2a289192074c 375-388,392-416,420-478,480-600,603-621,624-680,683,686-688,691-692,695-698,700,702,705-706,709,711,719-726,746,748,756,758,764,774,782,791,808
+prototypes/visual-direction-v2.html
+  s_6852d3c4c7f81d::t_9e4dca3f98df1e 1-199
+prototypes/home-preview-v0.html
+  s_6852d3c4c7f81d::t_a7f9f3575365a3 1-43,45-49,52-102,104-190,247-257,259-280,282-313,334-350,377-378
+  s_6852d3c4c7f81d::t_6465687602f135 103,191-246,281,314-333,351-376
+  s_6852d3c4c7f81d::t_0725801c772afa 44,50-51,258
+README.md
+  s_6852d3c4c7f81d::t_abfa960e99c872 56
+  s_70a2bd3a47e163::t_1a7955c138eee6 65-66,68,74,76,78-82
+prototypes/core-screens-v1.html
+  s_6852d3c4c7f81d::t_662b493248fd82 1-14,17-57
+  s_6852d3c4c7f81d::t_0725801c772afa 15-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.51-trip",
+  "base_commit_sha": "57435699a2043512de923908b3d9d19577ca0baa",
+  "prompts": {},
+  "sessions": {
+    "s_6852d3c4c7f81d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a159bd-4bd9-7b50-89ff-6cd6efba8556",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "SuperKatrina123 <yingyuyan@zju.edu.cn>"
+    },
+    "s_70a2bd3a47e163": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1599d-8974-7793-a8b4-62fd717ad919",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "SuperKatrina123 <yingyuyan@zju.edu.cn>"
+    },
+    "s_ba6d94bcf19310": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a159ae-0581-7243-ae60-34d36705f1e7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "SuperKatrina123 <yingyuyan@zju.edu.cn>"
+    }
+  }
+}
